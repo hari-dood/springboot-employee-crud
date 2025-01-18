@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures responsiveness on mobile devices -->
+    <title>Create Employee</title> <!-- Title of the page -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"> <!-- Link to Bootstrap 5.3 CSS for styling -->
+</head>
+<body>
+<div class="container mt-5"> <!-- Bootstrap container with margin-top -->
+    <h1 class="text-center mb-4">Create New Employee Details</h1> <!-- Heading for the page -->
+
+    <!-- Card to contain the form -->
+    <div class="card shadow">
+        <div class="card-body">
+            <!-- Form for creating a new employee -->
+            <form action="#" th:action="@{/employee/saveEmployee}" th:object="${employees}" method="post" enctype="multipart/form-data">
+
+                <!-- Input field for Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input id="name" class="form-control" required th:field="*{name}" type="text" placeholder="Enter full name">
+                </div>
+
+                <!-- Input field for Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" th:field="*{email}" required placeholder="Enter email address">
+                </div>
+
+                <!-- Input field for Department -->
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input type="text" id="department" class="form-control" th:field="*{department}" required placeholder="Enter department">
+                </div>
+
+                <!-- Input field for Phone Number with validation for 10 digits -->
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" id="phoneNumber" class="form-control" th:field="*{phoneNumber}" required
+                           pattern="^[0-9]{10}$"
+                           title="Enter a valid 10-digit phone number"
+                           placeholder="Enter phone number">
+                </div>
+
+                <!-- Input field for Experience -->
+                <div class="mb-3">
+                    <label for="experience" class="form-label">Experience (Years)</label>
+                    <input type="number" id="experience" class="form-control" th:field="*{experience}" required min="0" step="1" placeholder="Enter experience in years">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Create Employee</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- Optional: Custom JavaScript for Form Validation -->
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        // Add custom JavaScript validation if needed
+        console.log("Form submitted");
+    });
+</script>
+</body>
+</html>

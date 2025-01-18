@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Employee List</h1>
+
+    <!-- Employee Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Phone Number</th>
+                <th>Experience</th>
+                <th>Actions</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Display 5 Employees Per Page -->
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.name}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.department}"></td>
+                <td th:text="${employee.phoneNumber}"></td>
+                <td th:text="${employee.experience}"></td>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/employee/edit/{id}(id=${employee.id})}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" th:href="@{/employee/delete/{id}(id=${employee.id})}"
+                       onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Employee Button -->
+    <div class="text-end">
+        <a class="btn btn-success" th:href="@{/employee/createForm}">Add Employee</a>
+    </div>
+
+    <!-- Pagination Footer -->
+    <footer class="panel-footer mt-4">
+        <nav aria-label="Employee Pagination">
+            <ul class="pagination justify-content-center">
+                <!-- Previous Page -->
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/employee/page/{pageNumber}(pageNumber=${currentPage - 1})}" tabindex="-1">Previous</a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}" th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/employee/page/{pageNumber}(pageNumber=${i})}">
+                        [[${i}]]
+                    </a>
+                </li>
+
+                <!-- Next Page -->
+                <li class="page-item" th:classappend="${currentPage == totalPage} ? 'disabled'">
+                    <a class="page-link" th:href="@{/employee/page/{pageNumber}(pageNumber=${currentPage + 1})}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
